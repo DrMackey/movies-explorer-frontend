@@ -1,0 +1,72 @@
+.about-me {
+  padding: 70px 14px;
+}
+
+.about-me__title {
+  margin: 0;
+  padding-bottom: 27px;
+  border-bottom: solid 1px #DADADA;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.72px;
+}
+
+.about-me__photo {
+  border-radius: 10px;
+}
+
+.about-me__content-wrapper {
+  padding-top: 70px;
+}
+
+.about-me__content-title {
+  margin: 0;
+  padding-top: 40px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -1.2px;
+}
+
+.about-me__content-subtitle {
+  margin: 0;
+  padding-top: 20px;
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.45455; /* 145.455% */
+}
+
+.about-me__content-paragraph {
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45455; /* 145.455% */
+}
+
+.about-me__link {
+  margin: 0;
+  text-decoration-line: none;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
