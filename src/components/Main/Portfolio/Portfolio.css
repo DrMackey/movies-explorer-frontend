@@ -1,6 +1,20 @@
 .portfolio {
-  padding: 70px 14px;
+  padding: 50px 14px;
   padding-top: 0;
+}
+
+@media (min-width: 700px) {
+  .portfolio {
+    padding: 70px 50px;
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 1000px) {
+  .portfolio {
+    padding: 103px 70px;
+  padding-top: 0;
+  }
 }
 
 .portfolio__title {
@@ -15,6 +29,14 @@
   line-height: 1.42857; /* 142.857% */
 }
 
+@media (min-width: 700px) {
+  .portfolio__title {
+    padding-bottom: 30px;
+    font-size: 18px;
+    line-height: 1.111; /* 111.111% */
+  }
+}
+
 .portfolio__list {
   margin: 0;
   padding: 0;
@@ -22,7 +44,8 @@
 }
 
 .portfolio__item {
-  padding: 20px 0;
+  padding-top: 22px;
+  padding-bottom: 8px;
   border-bottom: solid 1px #E6E6E6;
 }
 
@@ -35,18 +58,63 @@
   gap: 24px;
   justify-content: space-between;
   text-decoration: none;
-  background-image: url(../../../images/link-pointer2.svg);
-  background-size: 18px 28px;
-  background-repeat: no-repeat;
-  background-position: right;
   margin: 0;
   color: #FFF;
   font-family: Inter;
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.55556; /* 155.556% */
+  line-height: 1.55556;
   letter-spacing: -0.72px;
+}
+
+@media (min-width: 700px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 1.785; /* 178.571% */
+    letter-spacing: -1.12px;
+  }
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
+}
+
+.portfolio__link-title {
+  margin: 0;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 50px; /* 178.571% */
+  letter-spacing: -1.12px;
+
+}
+
+@media (min-width: 1000px) {
+  .portfolio__link-title {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
+}
+
+.portfolio__link-title-arrow {
+  margin: 0;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 60px; /* 214.286% */
+  letter-spacing: -1.12px;
+}
+
+@media (min-width: 1000px) {
+  .portfolio__link-title-arrow {
+    font-size: 30px;
+    letter-spacing: -1.2px;
+  }
 }
 
 .portfolio__pointer-link {

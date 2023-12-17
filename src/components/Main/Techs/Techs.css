@@ -2,6 +2,19 @@
   padding: 70px 14px;
 }
 
+@media (min-width: 700px) {
+  .techs {
+    padding: 90px 50px;
+    background: #272727;
+  }
+}
+
+@media (min-width: 1000px) {
+  .techs {
+    padding: 100px 70px;
+  }
+}
+
 .techs__title {
   margin: 0 4px;
   padding-bottom: 27px;
@@ -15,8 +28,32 @@
   letter-spacing: -0.72px;
 }
 
+@media (min-width: 700px) {
+  .techs__title {
+    margin: 0;
+    padding-bottom: 24px;
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
 .techs__block-paragraph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding-top: 60px;
+}
+
+@media (min-width: 700px) {
+  .techs__block-paragraph {
+    padding-top: 80px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .techs__block-paragraph {
+    padding-top: 90px;
+  }
 }
 
 .techs__paragraph-title {
@@ -29,6 +66,14 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -1.2px;
+}
+
+@media (min-width: 700px) {
+  .techs__paragraph-title {
+    font-size: 50px;
+    line-height: 1.16; /* 116% */
+    letter-spacing: -2px;
+  }
 }
 
 .techs__paragraph-subtitle {
@@ -44,6 +89,28 @@
   letter-spacing: -0.44px;
 }
 
+@media (min-width: 700px) {
+  .techs__paragraph-subtitle {
+    padding: 0 104px;
+    padding-top: 22px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5; /* 150% */
+    letter-spacing: -0.48px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .techs__paragraph-subtitle {
+    max-width: 460px;
+    padding: 0;
+    padding-top: 26px;
+    font-size: 14px;
+    line-height: 20px; /* 142.857% */
+    letter-spacing: -0.56px;
+  }
+}
+
 .techs__list {
   display: grid;
   grid-template-columns: 84px 84px;
@@ -54,8 +121,22 @@
   padding-top: 50px;
 }
 
+@media (min-width: 700px) {
+  .techs__list {
+    padding-top: 83px;
+    display: flex;
+    flex-wrap: wrap
+  }
+}
+
+@media (min-width: 1000px) {
+  .techs__list {
+    padding-top: 100px;
+  }
+}
+
 .techs__item {
-  width: 84px;
+  min-width: 84px;
   padding: 21px 0;
   list-style-type: none;
   border-radius: 10px;
@@ -68,4 +149,11 @@
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.48px;
+}
+
+@media (min-width: 1000px) {
+  .techs__item {
+    min-width: 90px;
+    font-size: 14px;
+  }
 }
