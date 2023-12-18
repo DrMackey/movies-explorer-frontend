@@ -12,6 +12,9 @@ import NotFound from "../NotFound/NotFound.js";
 import "./App.css";
 
 function App() {
+  const newLang = "ru";
+  document.documentElement.lang = newLang;
+
   const [isChangeScroll, setIsChangeScroll] = useState(false);
 
   function onChangeScroll() {
