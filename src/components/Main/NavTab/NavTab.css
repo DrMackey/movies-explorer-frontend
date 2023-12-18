@@ -1,13 +1,14 @@
 .navtab {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 24px;
   padding: 25px 53px;
   background: #272727;
 }
 
 @media (min-width: 700px) {
   .navtab {
-    justify-content: center;
+    
     gap: 40px;
     padding: 25px 0;
   }

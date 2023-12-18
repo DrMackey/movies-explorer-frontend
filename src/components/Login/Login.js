@@ -5,7 +5,7 @@ import logo from "../../images/logo.svg";
 
 export default function Login() {
   return (
-    <section className="login">
+    <main className="login">
       <div className="login__container">
         <div className="login__container-title">
           <img className="login__logo" src={logo} alt="Логотип." />
@@ -58,6 +58,6 @@ export default function Login() {
           </div>
         </form>
       </div>
-    </section>
+    </main>
   );
 }

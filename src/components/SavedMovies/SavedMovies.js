@@ -5,7 +5,7 @@ import cardImage2 from "../../images/card-image-2.jpeg";
 
 export default function SavedMovies() {
   return (
-    <>
+    <main>
       <section className="search-form">
         <form className="search-form__input-wrapper">
           <input
@@ -70,8 +70,7 @@ export default function SavedMovies() {
             </div>
           </li>
         </ul>
-        {/* <button className="saved-movies-card-list__button">Ещё</button> */}
       </section>
-    </>
+    </main>
   );
 }

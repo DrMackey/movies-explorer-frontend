@@ -18,6 +18,7 @@
 }
 
 .search-form__input-wrapper {
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   gap: 46px;
@@ -27,7 +28,7 @@
 }
 
 .search-form__input {
-  box-sizing: border-box;
+  
   padding: 8px 0;
   padding-left: 13px;
   color: #fff;
@@ -54,6 +55,10 @@
   outline: none;
 }
 
+.search-form__input-wrapper:focus-within {
+  border: 1px white solid;
+}
+
 .search-form__button {
   width: 34px;
   height: 34px;
@@ -64,6 +69,10 @@
   background-size: 34px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.search-form__button:hover {
+  opacity: .7;
 }
 
 .search-form__checkbox-wrapper {
@@ -210,23 +219,22 @@
   box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.08);
 }
 
+.movies-card-list__img-container {
+  width: 100%;
+  padding-top: 55.80%;
+  position: relative;
+}
+
 .movies-card-list__img {
+  position: absolute;
+  top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   display: block;
   width: 100%;
-  height: 168px;
+  min-height: 100%;
   object-fit: cover;
-}
-
-@media (min-width: 460px) {
-  .movies-card-list__img {
-    height: 190px;
-  }
-}
-
-@media (min-width: 1000px) {
-  .movies-card-list__img {
-    height: 203px;
-  }
 }
 
 .movies-card-list__description-container {

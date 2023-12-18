@@ -5,7 +5,7 @@ import cardImage2 from "../../images/card-image-2.jpeg";
 
 export default function Movies() {
   return (
-    <>
+    <main>
       <section className="search-form">
         <form className="search-form__input-wrapper">
           <input
@@ -126,6 +126,6 @@ export default function Movies() {
         </ul>
         <button className="movies-card-list__button">Ещё</button>
       </section>
-    </>
+    </main>
   );
 }

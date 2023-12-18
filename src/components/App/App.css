@@ -6,4 +6,9 @@ body {
   width: 100%;
   min-height: 100%;
 }
+
+.page_noscroll {
+  height: 100vh;
+  overflow: hidden;
+}
   

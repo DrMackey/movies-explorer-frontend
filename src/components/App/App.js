@@ -12,10 +12,16 @@ import NotFound from "../NotFound/NotFound.js";
 import "./App.css";
 
 function App() {
+  const [isChangeScroll, setIsChangeScroll] = useState(false);
+
+  function onChangeScroll() {
+    setIsChangeScroll(!isChangeScroll);
+  }
+
   return (
     <>
-      <div className="page">
-        <Header />
+      <div className={`page ${isChangeScroll ? "page_noscroll" : ""}`}>
+        <Header onChangeScroll={onChangeScroll} />
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/movies" element={<Movies />} />

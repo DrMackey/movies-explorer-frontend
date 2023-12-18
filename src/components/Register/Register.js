@@ -5,7 +5,7 @@ import logo from "../../images/logo.svg";
 
 export default function Regitster() {
   return (
-    <section className="register">
+    <main className="register">
       <div className="login__container">
         <div className="register__container-title">
           <img className="register__logo" src={logo} alt="Логотип." />
@@ -73,6 +73,6 @@ export default function Regitster() {
           </div>
         </form>
       </div>
-    </section>
+    </main>
   );
 }
