@@ -1,0 +1,131 @@
+import React from "react";
+import "./Movies.css";
+import cardImage from "../../images/card-image.jpeg";
+import cardImage2 from "../../images/card-image-2.jpeg";
+
+export default function Movies() {
+  return (
+    <main>
+      <section className="search-form">
+        <form className="search-form__input-wrapper">
+          <input
+            className="search-form__input"
+            type="text"
+            placeholder="Фильм"
+            id="search"
+            name="search"
+          />
+          <button className="search-form__button"></button>
+        </form>
+        <div className="search-form__checkbox-wrapper">
+          <label className="search-form__toggler-wrapper style-1">
+            <input
+              className="search-form__checkbox"
+              type="checkbox"
+              defaultChecked
+            />
+            <div className="search-form__toggler-slider">
+              <div className="search-form__toggler-knob"></div>
+            </div>
+          </label>
+          <p className="search-form__checkbox-subtitle">Короткометражки</p>
+        </div>
+      </section>
+      <section className="movies-card-list">
+        <ul className="movies-card-list__list">
+          <li className="movies-card-list__item">
+            <div className="movies-card-list__img-container">
+              <img
+                className="movies-card-list__img"
+                src={cardImage}
+                alt="Изображение карточки фильма."
+              />
+            </div>
+            <div className="movies-card-list__description-container">
+              <div className="movies-card-list__text-wrapper">
+                <h2 className="movies-card-list__title-card">
+                  33 слова о дизайне
+                </h2>
+                <p className="movies-card-list__time-card">1ч 47м</p>
+              </div>
+              <button className="movies-card-list__like-button like"></button>
+            </div>
+          </li>
+          <li className="movies-card-list__item">
+            <div className="movies-card-list__img-container">
+              <img
+                className="movies-card-list__img"
+                src={cardImage2}
+                alt="Изображение карточки фильма."
+              />
+            </div>
+            <div className="movies-card-list__description-container">
+              <div className="movies-card-list__text-wrapper">
+                <h2 className="movies-card-list__title-card">
+                  Киноальманах «100 лет дизайна»
+                </h2>
+                <p className="movies-card-list__time-card">1ч 47м</p>
+              </div>
+              <button className="movies-card-list__like-button"></button>
+            </div>
+          </li>
+          <li className="movies-card-list__item">
+            <div className="movies-card-list__img-container">
+              <img
+                className="movies-card-list__img"
+                src={cardImage2}
+                alt="Изображение карточки фильма."
+              />
+            </div>
+            <div className="movies-card-list__description-container">
+              <div className="movies-card-list__text-wrapper">
+                <h2 className="movies-card-list__title-card">
+                  Киноальманах «100 лет дизайна»
+                </h2>
+                <p className="movies-card-list__time-card">1ч 47м</p>
+              </div>
+              <button className="movies-card-list__like-button"></button>
+            </div>
+          </li>
+          <li className="movies-card-list__item">
+            <div className="movies-card-list__img-container">
+              <img
+                className="movies-card-list__img"
+                src={cardImage2}
+                alt="Изображение карточки фильма."
+              />
+            </div>
+            <div className="movies-card-list__description-container">
+              <div className="movies-card-list__text-wrapper">
+                <h2 className="movies-card-list__title-card">
+                  Киноальманах «100 лет дизайна»
+                </h2>
+                <p className="movies-card-list__time-card">1ч 47м</p>
+              </div>
+              <button className="movies-card-list__like-button"></button>
+            </div>
+          </li>
+          <li className="movies-card-list__item">
+            <div className="movies-card-list__img-container">
+              <img
+                className="movies-card-list__img"
+                src={cardImage2}
+                alt="Изображение карточки фильма."
+              />
+            </div>
+            <div className="movies-card-list__description-container">
+              <div className="movies-card-list__text-wrapper">
+                <h2 className="movies-card-list__title-card">
+                  Киноальманах «100 лет дизайна»
+                </h2>
+                <p className="movies-card-list__time-card">1ч 47м</p>
+              </div>
+              <button className="movies-card-list__like-button"></button>
+            </div>
+          </li>
+        </ul>
+        <button className="movies-card-list__button">Ещё</button>
+      </section>
+    </main>
+  );
+}
