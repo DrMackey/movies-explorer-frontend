@@ -1,0 +1,180 @@
+.about-me {
+  padding: 70px 14px;
+}
+
+@media (min-width: 700px) {
+  .about-me {
+    padding: 90px 50px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me {
+    padding: 110px 70px;
+    padding-bottom: 100px;
+  }
+}
+
+
+
+
+@media (min-width: 1000px) {
+  .about-me__text-container {
+    max-width: 600px;
+  }
+}
+
+.about-me__title {
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: solid 1px #DADADA;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.72px;
+}
+
+@media (min-width: 700px) {
+  .about-me__title {
+    padding-bottom: 23px;
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+}
+
+.about-me__photo {
+  border-radius: 10px;
+}
+
+@media (min-width: 700px) {
+  .about-me__photo {
+    max-width: 255px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me__photo {
+    max-width: 270px;
+  }
+}
+
+.about-me__content-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+}
+
+@media (min-width: 700px) {
+  .about-me__content-wrapper {
+    flex-direction: row-reverse;
+    gap: 49px;
+    padding-top: 66px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me__content-wrapper {
+    justify-content: space-between;
+  }
+}
+
+.about-me__content-title {
+  margin: 0;
+  padding-top: 40px;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: -1.2px;
+}
+
+@media (min-width: 700px) {
+  .about-me__content-title {
+    padding: 0;
+    font-size: 40px;
+    line-height: 1; /* 100% */
+    letter-spacing: -1.6px;
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me__content-title {
+    font-size: 50px; 
+    line-height: 58px; /* 116% */
+    letter-spacing: -2px;
+  }
+}
+
+.about-me__content-subtitle {
+  margin: 0;
+  padding-top: 20px;
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.45455; /* 145.455% */
+}
+
+@media (min-width: 700px) {
+  .about-me__content-subtitle {
+    padding-top: 16px;
+    font-size: 12px;
+    line-height: 1.5; /* 150% */
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me__content-subtitle {
+    padding-top: 18px;
+    font-size: 18px;
+    line-height: 20px; /* 111.111% */
+  }
+}
+
+.about-me__content-paragraph {
+  margin: 0;
+  padding-top: 20px;
+  padding-bottom: 40px;
+  color: #FFF;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.45455; /* 145.455% */
+}
+
+@media (min-width: 700px) {
+  .about-me__content-paragraph {
+    padding-bottom: 87px;
+    font-size: 12px;
+    line-height: 1.5; /* 150% */
+  }
+}
+
+@media (min-width: 1000px) {
+  .about-me__content-paragraph {
+    padding-top: 28px;
+    padding-bottom: 99px;
+    font-size: 14px;
+    line-height: 22px; /* 157.143% */
+  }
+}
+
+.about-me__link {
+  margin: 0;
+  text-decoration-line: none;
+  color: #FFF;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
