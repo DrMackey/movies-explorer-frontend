@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Movies.css";
 import cardImage from "../../images/card-image.jpeg";
 import cardImage2 from "../../images/card-image-2.jpeg";
+import moviesApi from "../../utils/MoviesApi.js";
+import MoviesCard from "./MoviesCard/MoviesCard.js";
 
-export default function Movies() {
+export default function Movies(cards) {
+  console.log("movies                      cards", cards);
+  // const [isStatus, setIsStatus] = useState();
+
+  // useEffect(() => {
+  //   moviesApi
+  //     .getInitialCards()
+  //     .then((res) => {
+  //       setIsStatus(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, []);
+
   return (
     <main>
       <section className="search-form">
@@ -33,6 +49,9 @@ export default function Movies() {
       </section>
       <section className="movies-card-list">
         <ul className="movies-card-list__list">
+          {cards.cards.map((card) => (
+            <MoviesCard card={card} key={card.id} />
+          ))}
           <li className="movies-card-list__item">
             <div className="movies-card-list__img-container">
               <img
@@ -51,7 +70,7 @@ export default function Movies() {
               <button className="movies-card-list__like-button like"></button>
             </div>
           </li>
-          <li className="movies-card-list__item">
+          {/* <li className="movies-card-list__item">
             <div className="movies-card-list__img-container">
               <img
                 className="movies-card-list__img"
@@ -122,7 +141,7 @@ export default function Movies() {
               </div>
               <button className="movies-card-list__like-button"></button>
             </div>
-          </li>
+          </li> */}
         </ul>
         <button className="movies-card-list__button">Ещё</button>
       </section>

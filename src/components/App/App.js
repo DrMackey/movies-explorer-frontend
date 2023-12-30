@@ -9,16 +9,33 @@ import Login from "../Login/Login.js";
 import Register from "../Register/Register.js";
 import Footer from "../Footer/Footer.js";
 import NotFound from "../NotFound/NotFound.js";
+import moviesApi from "../../utils/MoviesApi.js";
 import "./App.css";
 
 function App() {
+  useEffect(() => {
+    getDataCards();
+  }, []);
+
   const newLang = "ru";
   document.documentElement.lang = newLang;
 
   const [isChangeScroll, setIsChangeScroll] = useState(false);
+  const [cards, setCards] = useState([]);
 
   function onChangeScroll() {
     setIsChangeScroll(!isChangeScroll);
+  }
+
+  function getDataCards() {
+    moviesApi
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -27,7 +44,7 @@ function App() {
         <Header onChangeScroll={onChangeScroll} />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/movies" element={<Movies />} />
+          <Route path="/movies" element={<Movies cards={cards} />} />
           <Route path="/saved-movies" element={<SavedMovies />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<Login />} />
