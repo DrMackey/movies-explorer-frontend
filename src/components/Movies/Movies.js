@@ -6,19 +6,13 @@ import moviesApi from "../../utils/MoviesApi.js";
 import MoviesCard from "./MoviesCard/MoviesCard.js";
 
 export default function Movies(cards) {
-  console.log("movies                      cards", cards);
-  // const [isStatus, setIsStatus] = useState();
+  const [cardList, setCardList] = useState(94);
+  const cardsList = cards.cards.slice(cardList);
+  cardsList.reverse();
 
-  // useEffect(() => {
-  //   moviesApi
-  //     .getInitialCards()
-  //     .then((res) => {
-  //       setIsStatus(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  function toggleCardList() {
+    setCardList(cardList - 6);
+  }
 
   return (
     <main>
@@ -49,101 +43,11 @@ export default function Movies(cards) {
       </section>
       <section className="movies-card-list">
         <ul className="movies-card-list__list">
-          {cards.cards.map((card) => (
-            <MoviesCard card={card} key={card.id} />
-          ))}
-          <li className="movies-card-list__item">
-            <div className="movies-card-list__img-container">
-              <img
-                className="movies-card-list__img"
-                src={cardImage}
-                alt="Изображение карточки фильма."
-              />
-            </div>
-            <div className="movies-card-list__description-container">
-              <div className="movies-card-list__text-wrapper">
-                <h2 className="movies-card-list__title-card">
-                  33 слова о дизайне
-                </h2>
-                <p className="movies-card-list__time-card">1ч 47м</p>
-              </div>
-              <button className="movies-card-list__like-button like"></button>
-            </div>
-          </li>
-          {/* <li className="movies-card-list__item">
-            <div className="movies-card-list__img-container">
-              <img
-                className="movies-card-list__img"
-                src={cardImage2}
-                alt="Изображение карточки фильма."
-              />
-            </div>
-            <div className="movies-card-list__description-container">
-              <div className="movies-card-list__text-wrapper">
-                <h2 className="movies-card-list__title-card">
-                  Киноальманах «100 лет дизайна»
-                </h2>
-                <p className="movies-card-list__time-card">1ч 47м</p>
-              </div>
-              <button className="movies-card-list__like-button"></button>
-            </div>
-          </li>
-          <li className="movies-card-list__item">
-            <div className="movies-card-list__img-container">
-              <img
-                className="movies-card-list__img"
-                src={cardImage2}
-                alt="Изображение карточки фильма."
-              />
-            </div>
-            <div className="movies-card-list__description-container">
-              <div className="movies-card-list__text-wrapper">
-                <h2 className="movies-card-list__title-card">
-                  Киноальманах «100 лет дизайна»
-                </h2>
-                <p className="movies-card-list__time-card">1ч 47м</p>
-              </div>
-              <button className="movies-card-list__like-button"></button>
-            </div>
-          </li>
-          <li className="movies-card-list__item">
-            <div className="movies-card-list__img-container">
-              <img
-                className="movies-card-list__img"
-                src={cardImage2}
-                alt="Изображение карточки фильма."
-              />
-            </div>
-            <div className="movies-card-list__description-container">
-              <div className="movies-card-list__text-wrapper">
-                <h2 className="movies-card-list__title-card">
-                  Киноальманах «100 лет дизайна»
-                </h2>
-                <p className="movies-card-list__time-card">1ч 47м</p>
-              </div>
-              <button className="movies-card-list__like-button"></button>
-            </div>
-          </li>
-          <li className="movies-card-list__item">
-            <div className="movies-card-list__img-container">
-              <img
-                className="movies-card-list__img"
-                src={cardImage2}
-                alt="Изображение карточки фильма."
-              />
-            </div>
-            <div className="movies-card-list__description-container">
-              <div className="movies-card-list__text-wrapper">
-                <h2 className="movies-card-list__title-card">
-                  Киноальманах «100 лет дизайна»
-                </h2>
-                <p className="movies-card-list__time-card">1ч 47м</p>
-              </div>
-              <button className="movies-card-list__like-button"></button>
-            </div>
-          </li> */}
+          {cardsList.map((card) => (
+              <MoviesCard itemCard={card} key={card.id} />
+            ))}
         </ul>
-        <button className="movies-card-list__button">Ещё</button>
+        <button className="movies-card-list__button" onClick={toggleCardList}>Ещё</button>
       </section>
     </main>
   );
