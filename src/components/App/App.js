@@ -13,15 +13,16 @@ import moviesApi from "../../utils/MoviesApi.js";
 import "./App.css";
 
 function App() {
-  useEffect(() => {
-    getDataCards();
-  }, []);
-
   const newLang = "ru";
   document.documentElement.lang = newLang;
 
   const [isChangeScroll, setIsChangeScroll] = useState(false);
   const [cards, setCards] = useState([]);
+  const [isChangePreloader, setIsChangePreloader] = useState(true);
+
+  useEffect(() => {
+    getDataCards();
+  }, []);
 
   function onChangeScroll() {
     setIsChangeScroll(!isChangeScroll);
@@ -31,12 +32,17 @@ function App() {
     moviesApi
       .getInitialCards()
       .then((cards) => {
+        console.log("1", isChangePreloader);
         setCards(cards);
+        setIsChangePreloader(false);
+        console.log("2", isChangePreloader);
       })
       .catch((err) => {
         console.log(err);
       });
   }
+
+  console.log("3", isChangePreloader);
 
   return (
     <>
@@ -44,7 +50,12 @@ function App() {
         <Header onChangeScroll={onChangeScroll} />
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/movies" element={<Movies cards={cards} />} />
+          <Route
+            path="/movies"
+            element={
+              <Movies cards={cards} isChangePreloader={isChangePreloader} />
+            }
+          />
           <Route path="/saved-movies" element={<SavedMovies />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/signin" element={<Login />} />

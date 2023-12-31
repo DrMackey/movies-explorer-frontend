@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function MoviesCard(itemCard, key) {
+  const [isLike, setIsLike] = useState(false);
+
+  function handleLikeClick() {
+    setIsLike(!isLike);
+  }
 
   return (
     <li className="movies-card-list__item">
@@ -13,10 +18,17 @@ export default function MoviesCard(itemCard, key) {
       </div>
       <div className="movies-card-list__description-container">
         <div className="movies-card-list__text-wrapper">
-          <h2 className="movies-card-list__title-card">{itemCard.itemCard.nameRU}</h2>
-          <p className="movies-card-list__time-card">{itemCard.itemCard.duration} минуты</p>
+          <h2 className="movies-card-list__title-card">
+            {itemCard.itemCard.nameRU}
+          </h2>
+          <p className="movies-card-list__time-card">
+            {itemCard.itemCard.duration} минуты
+          </p>
         </div>
-        <button className="movies-card-list__like-button"></button>
+        <button
+          className={`movies-card-list__like-button ${isLike ? "like" : ""}`}
+          onClick={handleLikeClick}
+        ></button>
       </div>
     </li>
   );

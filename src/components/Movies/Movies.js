@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import "./Movies.css";
-import cardImage from "../../images/card-image.jpeg";
-import cardImage2 from "../../images/card-image-2.jpeg";
-import moviesApi from "../../utils/MoviesApi.js";
 import MoviesCard from "./MoviesCard/MoviesCard.js";
+import Preloader from "../Preloader/Preloader.js";
 
-export default function Movies(cards) {
+export default function Movies(cards, isChangePreloader) {
   const [cardList, setCardList] = useState(94);
+
   const cardsList = cards.cards.slice(cardList);
   cardsList.reverse();
+
+  // useEffect(() => {
+  //   setIsChangePreloader(false);
+  // }, [cards]);
 
   function toggleCardList() {
     setCardList(cardList - 6);
@@ -43,11 +46,17 @@ export default function Movies(cards) {
       </section>
       <section className="movies-card-list">
         <ul className="movies-card-list__list">
-          {cardsList.map((card) => (
+          {isChangePreloader ? (
+            <Preloader />
+          ) : (
+            cardsList.map((card) => (
               <MoviesCard itemCard={card} key={card.id} />
-            ))}
+            ))
+          )}
         </ul>
-        <button className="movies-card-list__button" onClick={toggleCardList}>Ещё</button>
+        <button className="movies-card-list__button" onClick={toggleCardList}>
+          Ещё
+        </button>
       </section>
     </main>
   );
