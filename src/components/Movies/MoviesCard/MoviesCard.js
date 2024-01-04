@@ -1,28 +1,40 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import "./MoviesCard.css";
 
-export default function MoviesCard(itemCard, key) {
+export default function MoviesCard({itemCard}) {
   const [isLike, setIsLike] = useState(false);
 
   function handleLikeClick() {
     setIsLike(!isLike);
   }
 
+  function getTimeFromMins(mins) {
+    let hours = Math.trunc(mins/60);
+    let minutes = mins % 60;
+    return hours + 'ч ' + minutes + 'м';
+};
+
   return (
     <li className="movies-card-list__item">
       <div className="movies-card-list__img-container">
-        <img
-          className="movies-card-list__img"
-          src={"https://api.nomoreparties.co" + itemCard.itemCard.image.url}
-          alt="Изображение карточки фильма."
-        />
+        <Link to={itemCard.trailerLink} target="_blank">
+          <img
+            className="movies-card-list__img"
+            src={"https://api.nomoreparties.co" + itemCard.image.url}
+            alt="Изображение карточки фильма."
+          />
+        </Link>
       </div>
       <div className="movies-card-list__description-container">
         <div className="movies-card-list__text-wrapper">
-          <h2 className="movies-card-list__title-card">
-            {itemCard.itemCard.nameRU}
-          </h2>
+          <Link to={itemCard.trailerLink} className="movies-card-list__link" target="_blank">
+            <h2 className="movies-card-list__title-card">
+              {itemCard.nameRU}
+            </h2>
+          </Link>
           <p className="movies-card-list__time-card">
-            {itemCard.itemCard.duration} минуты
+            {getTimeFromMins(itemCard.duration)}
           </p>
         </div>
         <button

@@ -29,20 +29,17 @@ function App() {
   }
 
   function getDataCards() {
+    setIsChangePreloader(true);
     moviesApi
       .getInitialCards()
       .then((cards) => {
-        console.log("1", isChangePreloader);
         setCards(cards);
         setIsChangePreloader(false);
-        console.log("2", isChangePreloader);
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
-  console.log("3", isChangePreloader);
 
   return (
     <>
@@ -53,7 +50,7 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies cards={cards} isChangePreloader={isChangePreloader} />
+              <Movies cards={cards} onChangePreloader={isChangePreloader} setCards={setCards} getDataCards={getDataCards}/>
             }
           />
           <Route path="/saved-movies" element={<SavedMovies />} />

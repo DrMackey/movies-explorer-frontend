@@ -3,30 +3,123 @@ import "./Movies.css";
 import MoviesCard from "./MoviesCard/MoviesCard.js";
 import Preloader from "../Preloader/Preloader.js";
 
-export default function Movies(cards, isChangePreloader) {
-  const [cardList, setCardList] = useState(94);
+export default function Movies({ cards, onChangePreloader, setCards, getDataCards }) {
+  const [cardList, setCardList] = useState(Number);
+  const [cardsNewList, setCardsNewList] = useState([]);
+  const [width, setWidth] = useState(window.innerWidth);
+  const [value, setValue] = useState('');
+  const [onChangeButton, setOnChangeButton] = useState(true);
+  const resize = {
+    "1280": 12,
+    "768": 8,
+    "320": 5
+  }
+  var lastResize = 0;
+  // const test = setCardsList(cards,cardList);
+    
+  function setCardsList(cards, cardList) {
+    const cardsList = cards.slice(cardList);
+    cardsList.reverse();
+    setCards(cardsList);
+  }
 
-  const cardsList = cards.cards.slice(cardList);
-  cardsList.reverse();
-
+  // const cardsList = setCardsList(cards, cardList);
   // useEffect(() => {
-  //   setIsChangePreloader(false);
+  //   setCardsNewList(cards);
+  //   setCardList(cards.length - resize[width]);
+  //   cardsList = cardsNewList.slice(cardList);
+  //   cardsList.reverse();
+
+  //   console.log("cardsNewList", cardsNewList);
+  //   console.log("cards", cards);
+  //   console.log("cardsList", cardsList);
+  //   console.log("cardList", cardList);
   // }, [cards]);
 
+  useEffect(() => {
+    setCardList(cards.length - resize[width]);
+    function handleResize(event) {
+      setWidth(event.target.innerWidth);
+    };
+
+    setCardsList(cards, cardList);
+
+    window.addEventListener('resize', function(e) {
+      if(Date.now() - lastResize > 500) {
+        handleResize(e);
+        lastResize = Date.now();
+        return;
+    } 
+      });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (width <= 480) {
+      setCardList(cards.length - resize[320]);
+    }
+    if (width >= 481 && width <= 900) {
+      setCardList(cards.length - resize[768]);
+    }
+    if (width >= 901) {
+      setCardList(cards.length - resize[1280]);
+    }
+  }, [width]);
+
   function toggleCardList() {
-    setCardList(cardList - 6);
+    if (width <= 480) {
+      setCardList(cardList - 2);
+    }
+    if (width >= 481) {
+      setCardList(cardList - 3);
+    }
+  }
+
+  function buttonChange() {
+    if (cardList > 0 && cardList < cards.length) {
+      return (<button className="movies-card-list__button" onClick={toggleCardList}>
+        Ещё
+      </button>)
+    }
+  }
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  }
+
+  function formSubmit(e) {
+    e.preventDefault();
+
+    if (value.length === 0) {
+      getDataCards();
+    }
+    setCards(cards.filter(card => {
+      
+      if (card.nameRU.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        return true
+      } else if (card.nameEN.toLowerCase().indexOf(value.toLowerCase()) > -1) {
+        return true
+      }
+    }));
   }
 
   return (
     <main>
       <section className="search-form">
-        <form className="search-form__input-wrapper">
+        <form className="search-form__input-wrapper" 
+        onSubmit={formSubmit}
+        >
           <input
             className="search-form__input"
             type="text"
             placeholder="Фильм"
             id="search"
             name="search"
+            value={value}
+            onChange={handleChange}
           />
           <button className="search-form__button"></button>
         </form>
@@ -45,18 +138,20 @@ export default function Movies(cards, isChangePreloader) {
         </div>
       </section>
       <section className="movies-card-list">
-        <ul className="movies-card-list__list">
-          {isChangePreloader ? (
+          {onChangePreloader ? (
             <Preloader />
           ) : (
-            cardsList.map((card) => (
-              <MoviesCard itemCard={card} key={card.id} />
-            ))
+            <>
+              <ul className="movies-card-list__list">
+                {cards.map((card) => (
+                  <MoviesCard itemCard={card} key={card.id}/>
+                ))}
+              </ul>
+              {onChangeButton ? (<button className="movies-card-list__button" onClick={toggleCardList}>
+        Ещё
+      </button>) : ""}
+            </>
           )}
-        </ul>
-        <button className="movies-card-list__button" onClick={toggleCardList}>
-          Ещё
-        </button>
       </section>
     </main>
   );

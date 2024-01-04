@@ -69,6 +69,7 @@
   background-size: 34px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .search-form__button:hover {
