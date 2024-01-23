@@ -163,7 +163,7 @@
   font-weight: 500;
   line-height: normal;
   transition: color 1s ease-in-out;
-  transition: opacity 1s ease-in-out;
+  transition: opacity .5s ease-in-out;
 }
 
 @media (min-width: 600px) {
@@ -175,6 +175,10 @@
 .login__button:hover {
   opacity: 0.8;
   background: #3456F3;
+}
+
+.login__button_disabled {
+  opacity: .5;
 }
 
 .login__container-link {

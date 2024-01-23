@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Header.css";
 
-export default function Header({ onChangeScroll }) {
+export default function Header({ onChangeScroll, isLogin }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
   if (pathname === "/signup" || pathname === "/signin") return null;
@@ -18,29 +18,45 @@ export default function Header({ onChangeScroll }) {
         className={`header ${pathname === "/" ? "header_main-page" : ""}`}
       >
         <Link to="/" className="header__logo" />
-        <nav className="header__desc-menu">
-          <ul className="header__desc-list">
-            <li className="header__desc-item">
-              <Link to="/movies" className="header__desc-item-link">
-                Фильмы
+        {isLogin ? (
+          <>
+            <nav className="header__desc-menu">
+              <ul className="header__desc-list">
+                <li className="header__desc-item">
+                  <Link to="/movies" className="header__desc-item-link">
+                    Фильмы
+                  </Link>
+                </li>
+                <li className="header__desc-item">
+                  <Link to="/saved-movies" className="header__desc-item-link">
+                    Сохранённые фильмы
+                  </Link>
+                </li>
+              </ul>
+              <Link to="/profile" className="header__profile-link">
+                <p className="header__profile-link-title">Аккаунт</p>
+                <div
+                  className={`header__profile-icon ${
+                    pathname === "/" ? "header__profile-icon-main" : ""
+                  }`}
+                ></div>
               </Link>
-            </li>
-            <li className="header__desc-item">
-              <Link to="/saved-movies" className="header__desc-item-link">
-                Сохранённые фильмы
-              </Link>
-            </li>
-          </ul>
-          <Link to="/profile" className="header__profile-link">
-            <p className="header__profile-link-title">Аккаунт</p>
-            <div
-              className={`header__profile-icon ${
-                pathname === "/" ? "header__profile-icon-main" : ""
-              }`}
-            ></div>
-          </Link>
-        </nav>
-        <button className="header__button" onClick={onChangeVisible}></button>
+            </nav>
+            <button
+              className="header__button"
+              onClick={onChangeVisible}
+            ></button>
+          </>
+        ) : (
+          <nav className="header__nav">
+            <Link to="/signup" className="header__register-link">
+              Регистрация
+            </Link>
+            <Link to="/signin" className="header__login-link">
+              Войти
+            </Link>
+          </nav>
+        )}
       </header>
       <div
         className={`menu-wrapper ${isMenuOpen ? "" : "menu-wrapper_closed"}`}

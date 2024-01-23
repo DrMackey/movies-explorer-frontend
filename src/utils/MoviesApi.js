@@ -49,23 +49,23 @@ class MoviesApi {
       });
   }
 
-  postCreateCard(name, link) {
-    return fetch(`${this._url}/cards`, {
-      method: "POST",
-      credentials: "include",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      }),
-    })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
-      .then((res) => {
-        return res.data;
-      });
-  }
+  // postCreateCard(name, link) {
+  //   return fetch(`${this._url}/cards`, {
+  //     method: "POST",
+  //     credentials: "include",
+  //     headers: this._headers,
+  //     body: JSON.stringify({
+  //       name: name,
+  //       link: link,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       return this._getResponseData(res);
+  //     })
+  //     .then((res) => {
+  //       return res.data;
+  //     });
+  // }
 }
 
 const moviesApi = new MoviesApi({

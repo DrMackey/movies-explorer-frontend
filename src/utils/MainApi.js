@@ -1,4 +1,4 @@
-class Api {
+class MainApi {
   constructor({ baseUrl, headers }) {
     this._url = baseUrl;
     this._headers = headers;
@@ -11,35 +11,48 @@ class Api {
     return res.json();
   }
 
-  getInitialCards() {
-    return fetch(`${this._url}/cards`, {
-      credentials: 'include',
-    })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
-      .then((res) => {
-        return res.data;
-      });
-  }
+  // getInitialCards() {
+  //   return fetch(`${this._url}/cards`, {
+  //     credentials: "include",
+  //   })
+  //     .then((res) => {
+  //       return this._getResponseData(res);
+  //     })
+  //     .then((res) => {
+  //       return res.data;
+  //     });
+  // }
 
-  getProfileId() {
-    return fetch(`${this._url}/users/me`, {
+  // getProfileId() {
+  //   return fetch(`${this._url}/users/me`, {
+  //     headers: this._headers,
+  //     credentials: "include",
+  //   })
+  //     .then((res) => {
+  //       return this._getResponseData(res);
+  //     })
+  //     .then((res) => {
+  //       return res.data;
+  //     });
+  // }
+
+  getInitialCards() {
+    return fetch(`${this._url}/movies`, {
       headers: this._headers,
-      credentials: 'include',
+      credentials: "include",
     })
       .then((res) => {
         return this._getResponseData(res);
       })
       .then((res) => {
-        return res.data;
+        return res;
       });
   }
 
   getProfileData() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
-      credentials: 'include',
+      credentials: "include",
     })
       .then((res) => {
         return this._getResponseData(res);
@@ -49,14 +62,14 @@ class Api {
       });
   }
 
-  setUserInfo(name, subtitle) {
+  setUserInfo(name, email) {
     return fetch(`${this._url}/users/me`, {
-      method: 'PATCH',
-      credentials: 'include',
+      method: "PATCH",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
-        about: subtitle,
+        email: email,
       }),
     })
       .then((res) => {
@@ -67,28 +80,28 @@ class Api {
       });
   }
 
-  postCreateCard(name, link) {
-    return fetch(`${this._url}/cards`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: name,
-        link: link,
-      }),
-    })
-      .then((res) => {
-        return this._getResponseData(res);
-      })
-      .then((res) => {
-        return res.data;
-      });
-  }
+  // postCreateCard(name, link) {
+  //   return fetch(`${this._url}/cards`, {
+  //     method: "POST",
+  //     credentials: "include",
+  //     headers: this._headers,
+  //     body: JSON.stringify({
+  //       name: name,
+  //       link: link,
+  //     }),
+  //   })
+  //     .then((res) => {
+  //       return this._getResponseData(res);
+  //     })
+  //     .then((res) => {
+  //       return res.data;
+  //     });
+  // }
 
-  deleteCard(idCard) {
-    return fetch(`${this._url}/cards/${idCard}`, {
-      method: 'DELETE',
-      credentials: 'include',
+  deleteLikedMovie(idCard) {
+    return fetch(`${this._url}/movies/${idCard}`, {
+      method: "DELETE",
+      credentials: "include",
       headers: this._headers,
     }).then((res) => {
       return this._getResponseData(res);
@@ -98,8 +111,8 @@ class Api {
   changeLikeCardStatus(cardId, isLiked) {
     if (isLiked) {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
-        method: 'PUT',
-        credentials: 'include',
+        method: "PUT",
+        credentials: "include",
         headers: this._headers,
       })
         .then((res) => {
@@ -110,8 +123,8 @@ class Api {
         });
     } else {
       return fetch(`${this._url}/cards/${cardId}/likes`, {
-        method: 'DELETE',
-        credentials: 'include',
+        method: "DELETE",
+        credentials: "include",
         headers: this._headers,
       })
         .then((res) => {
@@ -123,27 +136,50 @@ class Api {
     }
   }
 
-  updateAvatar(link) {
-    return fetch(`${this._url}/users/me/avatar`, {
-      method: 'PATCH',
-      credentials: 'include',
+  createMovie(card, currentUser) {
+    return fetch(`${this._url}/movies`, {
+      method: "POST",
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: link,
+        "id": card.id,
+        "nameRU": card.nameRU,
+        "nameEN": card.nameEN,
+        "image": { "url": card.image.url },
+        "trailerLink": card.trailerLink,
+        "duration": card.duration,
+        "likes": currentUser,
       }),
-    }).then((res) => {
-      return this._getResponseData(res);
-    });
+    })
+      .then((res) => {
+        return this._getResponseData(res);
+      })
+      .then((res) => {
+        return res.data;
+      });
   }
 
-  register = (password, email) => {
+  // updateAvatar(link) {
+  //   return fetch(`${this._url}/users/me/avatar`, {
+  //     method: "PATCH",
+  //     credentials: "include",
+  //     headers: this._headers,
+  //     body: JSON.stringify({
+  //       avatar: link,
+  //     }),
+  //   }).then((res) => {
+  //     return this._getResponseData(res);
+  //   });
+  // }
+
+  register = (name, email, password) => {
     return fetch(`${this._url}/signup`, {
-      method: 'POST',
-      credentials: 'include',
+      method: "POST",
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ password, email }),
+      body: JSON.stringify({ name, email, password }),
     })
       .then((response) => {
         if (response.status >= 200 && response.status < 300) {
@@ -160,10 +196,10 @@ class Api {
 
   authorization = (password, email) => {
     return fetch(`${this._url}/signin`, {
-      method: 'POST',
-      credentials: 'include',
+      method: "POST",
+      credentials: "include",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ password, email }),
     })
@@ -181,26 +217,26 @@ class Api {
 
   checkToken = (jwt) => {
     return fetch(`${this._url}/users/me`, {
-      method: 'GET',
-      credentials: 'include',
+      method: "GET",
+      credentials: "include",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => {
         return this._getResponseData(res);
       })
       .then((res) => {
-        localStorage.setItem('token', res.data._id);
+        localStorage.setItem("token", res.data._id);
 
         return res.data;
       });
   };
 
   deleteCookie() {
-    return fetch(`${this._url}/users/me/exit`, {
-      credentials: 'include',
+    return fetch(`${this._url}/signout`, {
+      credentials: "include",
       headers: this._headers,
     }).then((res) => {
       return res.status;
@@ -208,10 +244,11 @@ class Api {
   }
 }
 
-const api = new Api({
-  baseUrl: 'https://api.mesto-drmackey.nomoredomainsrocks.ru',
+const api = new MainApi({
+  // baseUrl: 'https://api.mesto-drmackey.nomoredomainsrocks.ru',
+  baseUrl: "http://localhost:3005",
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
 });
 
