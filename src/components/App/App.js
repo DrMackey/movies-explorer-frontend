@@ -146,7 +146,6 @@ function App() {
         getDataCards();
 
         tokenCheck();
-        console.log("test", userData, currentUser);
       })
       .catch((err) => {
         setIsStatus({

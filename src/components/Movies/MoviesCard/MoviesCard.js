@@ -1,37 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { currentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./MoviesCard.css";
 
-export default function MoviesCard({
-  itemCard,
-  onCardLike,
-  getLikedCards,
-  onLikedCards,
-  onSetIsLikedCards,
-  onIsLikedCards,
-}) {
+export default function MoviesCard({ itemCard, onCardLike, onIsLikedCards }) {
   const [isLiked, setIsLiked] = useState(false);
-  const currentUser = React.useContext(currentUserContext);
-  // const isOwn = itemCard.owner === currentUser._id;
-  // const isLiked = onLikedCards.data.some((i) => i === itemCard.id);
 
   useEffect(() => {
-    // console.log(onIsLikedCards);
     onChangeCards();
-    // getLikedCards();
   }, []);
 
   function onChangeCards() {
     onIsLikedCards.map((card) => {
       if (card.id === itemCard.id) {
-        console.log(card.likes);
         setIsLiked(true);
       }
     });
   }
   function handleLikeClick() {
-    // setIsLiked(!isLiked);
     onCardLike(itemCard, setIsLiked, isLiked);
   }
 

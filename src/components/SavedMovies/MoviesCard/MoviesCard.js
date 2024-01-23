@@ -1,20 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { currentUserContext } from "../../contexts/CurrentUserContext.js";
 import "./MoviesCard.css";
 
-export default function MoviesCard({
-  itemCard,
-  onCardLike,
-  getLikedCards,
-  onLikedCards,
-  onDeleteLikedCards,
-}) {
-  const [isLiked, setIsLiked] = useState(false);
-  // const currentUser = React.useContext(currentUserContext);
-  // const isOwn = itemCard.owner === currentUser._id;
-  // const isLiked = onLikedCards.data.some((i) => i === itemCard.id);
-
+export default function MoviesCard({ itemCard, onDeleteLikedCards }) {
   function handleLikeClick() {
     onDeleteLikedCards(itemCard._id);
   }

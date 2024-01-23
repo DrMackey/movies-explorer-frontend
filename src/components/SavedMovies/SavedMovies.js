@@ -67,7 +67,6 @@ export default function SavedMovies({
           return true;
         }
       });
-      console.log("проверка", result.length);
       if (result.length === 0) {
         setErrors("Ничего не найдено");
         onSetIsChangePreloader(false);

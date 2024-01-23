@@ -11,31 +11,6 @@ class MainApi {
     return res.json();
   }
 
-  // getInitialCards() {
-  //   return fetch(`${this._url}/cards`, {
-  //     credentials: "include",
-  //   })
-  //     .then((res) => {
-  //       return this._getResponseData(res);
-  //     })
-  //     .then((res) => {
-  //       return res.data;
-  //     });
-  // }
-
-  // getProfileId() {
-  //   return fetch(`${this._url}/users/me`, {
-  //     headers: this._headers,
-  //     credentials: "include",
-  //   })
-  //     .then((res) => {
-  //       return this._getResponseData(res);
-  //     })
-  //     .then((res) => {
-  //       return res.data;
-  //     });
-  // }
-
   getInitialCards() {
     return fetch(`${this._url}/movies`, {
       headers: this._headers,
@@ -79,24 +54,6 @@ class MainApi {
         return res.data;
       });
   }
-
-  // postCreateCard(name, link) {
-  //   return fetch(`${this._url}/cards`, {
-  //     method: "POST",
-  //     credentials: "include",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       name: name,
-  //       link: link,
-  //     }),
-  //   })
-  //     .then((res) => {
-  //       return this._getResponseData(res);
-  //     })
-  //     .then((res) => {
-  //       return res.data;
-  //     });
-  // }
 
   deleteLikedMovie(idCard) {
     return fetch(`${this._url}/movies/${idCard}`, {
@@ -158,19 +115,6 @@ class MainApi {
         return res.data;
       });
   }
-
-  // updateAvatar(link) {
-  //   return fetch(`${this._url}/users/me/avatar`, {
-  //     method: "PATCH",
-  //     credentials: "include",
-  //     headers: this._headers,
-  //     body: JSON.stringify({
-  //       avatar: link,
-  //     }),
-  //   }).then((res) => {
-  //     return this._getResponseData(res);
-  //   });
-  // }
 
   register = (name, email, password) => {
     return fetch(`${this._url}/signup`, {
