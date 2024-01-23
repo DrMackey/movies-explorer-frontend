@@ -7,19 +7,29 @@ export default function Login({ onLogin, onSetFormValue, onFormValue }) {
   const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   const [errors, setErrors] = useState({});
   const [onChangeButton, setOnChangeButton] = useState(true);
-  const [test, setTest] = useState({
+  const [isValidateForms, setIsValidateForms] = useState({
     "email": false,
     "password": false,
   });
 
   useEffect(() => {
-    hundleButton(Object.values(test));
-  }, [test]);
+    const { name, email } = onFormValue;
+    if (name.length !== 0 && email.length !== 0) {
+      setIsValidateForms({ "email": true, "password": true });
+    }
+  }, []);
+
+  useEffect(() => {
+    hundleButton(Object.values(isValidateForms));
+  }, [isValidateForms]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setTest({ ...test, [name]: formValidate(e) });
+    setIsValidateForms({
+      ...isValidateForms,
+      [name]: formValidate(name, value),
+    });
 
     onSetFormValue({
       ...onFormValue,
@@ -27,9 +37,7 @@ export default function Login({ onLogin, onSetFormValue, onFormValue }) {
     });
   };
 
-  function formValidate(e) {
-    const { name, value } = e.target;
-
+  function formValidate(name, value) {
     if (name === "email") {
       return emailFormValidate(name, value);
     } else if (name === "password") {
