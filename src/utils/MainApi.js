@@ -245,8 +245,8 @@ class MainApi {
 }
 
 const api = new MainApi({
-  // baseUrl: 'https://api.mesto-drmackey.nomoredomainsrocks.ru',
-  baseUrl: "http://localhost:3005",
+  baseUrl: "https://api.drmackey.nomoredomainsmonster.ru",
+  // baseUrl: "http://localhost:3005",
   headers: {
     "Content-Type": "application/json",
   },
