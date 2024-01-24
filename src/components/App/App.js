@@ -236,6 +236,8 @@ function App() {
   function signOut() {
     handleLoggedIn(false);
     localStorage.removeItem("token");
+    localStorage.removeItem("search");
+    localStorage.removeItem("checkBox");
     api.deleteCookie().catch((err) => {
       console.log(err);
     });

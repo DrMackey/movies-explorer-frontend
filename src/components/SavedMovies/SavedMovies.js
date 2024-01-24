@@ -19,11 +19,22 @@ export default function SavedMovies({
 
   useEffect(() => {
     getLikedCards();
+    if (cards.length === 0) {
+      setErrors("Список избранного пуст");
+      setIsLoadedLikedCards(false);
+    }
   }, []);
 
   useEffect(() => {
     formValidate(isValue);
   }, [isShortFilm]);
+
+  useEffect(() => {
+    if (cards.length === 0) {
+      setErrors("Список избранного пуст");
+      setIsLoadedLikedCards(false);
+    }
+  }, [cards]);
 
   function isShortFilmValidate(result) {
     if (isShortFilm) {

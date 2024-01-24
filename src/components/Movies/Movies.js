@@ -22,7 +22,7 @@ export default function Movies({
   const [toggleCardState, setToggleCardState] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isChangeButton, setIsChangeButton] = useState(0);
-  const search = localStorage.getItem("search");
+  var search = localStorage.getItem("search");
   const checkBox = localStorage.getItem("checkBox") === "true" ? true : false;
   const [errors, setErrors] = useState(
     "Для отображения фильмов введите запрос"
@@ -39,6 +39,9 @@ export default function Movies({
   var lastResize = 0;
 
   useEffect(() => {
+    if (search === null) {
+      search = "";
+    }
     setIsShortFilm(checkBox);
     checkSearchValue();
     checkCards();

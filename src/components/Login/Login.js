@@ -13,8 +13,8 @@ export default function Login({ onLogin, onSetFormValue, onFormValue }) {
   });
 
   useEffect(() => {
-    const { name, email } = onFormValue;
-    if (name.length !== 0 && email.length !== 0) {
+    const { email } = onFormValue;
+    if (email.length !== 0) {
       setIsValidateForms({ "email": true, "password": true });
     }
   }, []);

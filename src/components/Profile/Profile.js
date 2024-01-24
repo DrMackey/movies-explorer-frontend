@@ -43,7 +43,6 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
       setErrors({ ...errors, [name]: "" });
       return false;
     } else if (value.length <= 2) {
-      console.log(errors);
       setErrors({ ...errors, [name]: "Слишком короткое имя" });
       return false;
     } else if (value.length >= 40) {
@@ -101,7 +100,6 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
 
   function handleChangeEmail(e) {
     const { name, value } = e.target;
-    console.log(test);
 
     setEmail(e.target.value);
     setTest({ ...test, [name]: formValidate(e) });
