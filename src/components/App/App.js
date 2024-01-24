@@ -143,7 +143,6 @@ function App() {
       .then((res) => {
         handleLoggedIn(true);
         navigate("/movies", { replace: true });
-        getDataCards();
 
         tokenCheck();
       })
@@ -165,7 +164,8 @@ function App() {
     api
       .register(name, email, password)
       .then((res) => {
-        navigate("/signin", { replace: true });
+        // navigate("/signin", { replace: true });
+        handleLogin();
         setIsStatus({ status: true, text: "Вы успешно зарегистрировались!" });
         setIsAuthPopupOpen(true);
       })
