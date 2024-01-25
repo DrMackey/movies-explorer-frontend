@@ -3,29 +3,41 @@ import { Link } from "react-router-dom";
 import { currentUserContext } from "../contexts/CurrentUserContext.js";
 import "./Profile.css";
 
-export default function Profile({ userData, onUpdateUser, onSignOut }) {
+export default function Profile({ onUpdateUser, onSignOut }) {
   const currentUser = React.useContext(currentUserContext);
-  const [name, setName] = useState(currentUser.name ?? "");
-  const [email, setEmail] = useState(currentUser.email ?? "");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   const [errors, setErrors] = useState({});
-  const [onChangeButton, setOnChangeButton] = useState(true);
-  const [test, setTest] = useState({
-    "nickname": false,
-    "email": false,
+  const [onChangeButton, setOnChangeButton] = useState(false);
+  const [isChangeEditButton, setIsChangeEditButton] = useState(false);
+  const [isInputsStatus, setIsInputsStatus] = useState({
+    "nickname": true,
+    "email": true,
   });
 
   useEffect(() => {
-    hundleButton(Object.values(test));
-  }, [test]);
+    hundleButton(Object.values(isInputsStatus));
+  }, [isInputsStatus]);
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsChangeEditButton(false);
 
-    onUpdateUser({
-      name,
-      email,
-    });
+    if (name.length === 0 && email.length === 0) {
+      setIsChangeEditButton(false);
+    } else {
+      onUpdateUser(dataValidate());
+      setName("");
+      setEmail("");
+    }
+  }
+
+  function dataValidate() {
+    const newName = name ? name : currentUser.name;
+    const newEmail = email ? email : currentUser.email;
+
+    return { newName, newEmail };
   }
 
   function formValidate(e) {
@@ -41,7 +53,7 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
   function nameFormValidate(name, value) {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: "" });
-      return false;
+      return true;
     } else if (value.length <= 2) {
       setErrors({ ...errors, [name]: "Слишком короткое имя" });
       return false;
@@ -51,7 +63,7 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
     } else if (value.length >= 40) {
       setErrors({ ...errors, [name]: "Слишком длинное имя" });
       return false;
-    } else if (userData.name === value) {
+    } else if (currentUser.name === value) {
       setErrors({
         ...errors,
         [name]: "Имя не может совпадать с текущим",
@@ -66,14 +78,14 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
   function emailFormValidate(name, value) {
     if (value.length === 0) {
       setErrors({ ...errors, [name]: "" });
-      return false;
+      return true;
     } else if (value.length <= 2) {
       setErrors({ ...errors, [name]: "Слишком короткий E-mail" });
       return false;
     } else if (value.length >= 40) {
       setErrors({ ...errors, [name]: "Слишком длинний E-mail" });
       return false;
-    } else if (userData.email === value) {
+    } else if (currentUser.email === value) {
       setErrors({
         ...errors,
         [name]: "Почта не может совпадать с текущей",
@@ -92,17 +104,17 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
   }
 
   function handleChangeName(e) {
-    const { name, value } = e.target;
+    const { name } = e.target;
 
     setName(e.target.value);
-    setTest({ ...test, [name]: formValidate(e) });
+    setIsInputsStatus({ ...isInputsStatus, [name]: formValidate(e) });
   }
 
   function handleChangeEmail(e) {
-    const { name, value } = e.target;
+    const { name } = e.target;
 
     setEmail(e.target.value);
-    setTest({ ...test, [name]: formValidate(e) });
+    setIsInputsStatus({ ...isInputsStatus, [name]: formValidate(e) });
   }
 
   function hundleButton(data) {
@@ -113,16 +125,15 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
     setOnChangeButton(true);
   }
 
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setEmail(currentUser.email);
-  }, [currentUser]);
+  function onChangeEditButton() {
+    setIsChangeEditButton(true);
+  }
 
   return (
     <main className="profile">
       <div className="profile__container">
         <div className="profile__wrapper-title">
-          <h1 className="profile__title">Привет, {userData.name}!</h1>
+          <h1 className="profile__title">Привет, {currentUser.name}!</h1>
         </div>
         <form
           className="profile__form"
@@ -139,11 +150,12 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
                 }`}
                 id="nickname"
                 name="nickname"
-                defaultValue={userData.name}
-                required
+                placeholder={currentUser.name}
+                value={name}
                 minLength="2"
                 maxLength="40"
                 onChange={handleChangeName}
+                disabled={!isChangeEditButton}
               />
               <span className="profile__input-error email-input-error">
                 {errors.nickname}
@@ -159,33 +171,48 @@ export default function Profile({ userData, onUpdateUser, onSignOut }) {
                 }`}
                 id="email"
                 name="email"
-                defaultValue={userData.email}
-                required
+                placeholder={currentUser.email}
+                value={email}
                 minLength="2"
                 maxLength="40"
                 onChange={handleChangeEmail}
+                disabled={!isChangeEditButton}
               />
               <span className="profile__input-error email-input-error">
                 {errors.email}
               </span>
             </label>
           </fieldset>
-          <div className="profile__button-сontainer">
-            <button
-              className={`profile__button ${
-                onChangeButton ? "profile__button_disabled" : ""
-              } button `}
-              type="submit"
-              form="profile-edit"
-              disabled={onChangeButton}
-            >
-              Редактировать
-            </button>
-          </div>
         </form>
-        <Link to="/signin" className="profile__signout" onClick={onSignOut}>
-          Выйти из аккаунта
-        </Link>
+        <div className="profile__button-сontainer">
+          {isChangeEditButton ? (
+            <>
+              <div></div>
+              <button
+                className={`profile__button ${
+                  onChangeButton ? "profile__button_disabled" : ""
+                } button `}
+                type="submit"
+                form="profile-edit"
+                disabled={onChangeButton}
+              >
+                Сохранить
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className={`profile__edit-button button`}
+                onClick={onChangeEditButton}
+              >
+                Редактировать
+              </button>
+              <Link to="/" className="profile__signout" onClick={onSignOut}>
+                Выйти из аккаунта
+              </Link>
+            </>
+          )}
+        </div>
       </div>
     </main>
   );

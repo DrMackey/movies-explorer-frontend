@@ -9,11 +9,9 @@ export default function Movies({
   onSetIsChangePreloader,
   getDataCards,
   isLoadedCards,
-  getLikedCards,
   onCardLike,
-  onLikedCards,
-  onSetIsLikedCards,
   onIsLikedCards,
+  isChangeForms,
 }) {
   const [cardBuffer, setCardBuffer] = useState([]);
   const [width, setWidth] = useState(window.innerWidth);
@@ -22,7 +20,7 @@ export default function Movies({
   const [toggleCardState, setToggleCardState] = useState(false);
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [isChangeButton, setIsChangeButton] = useState(0);
-  var search = localStorage.getItem("search");
+  let search = localStorage.getItem("search");
   const checkBox = localStorage.getItem("checkBox") === "true" ? true : false;
   const [errors, setErrors] = useState(
     "Для отображения фильмов введите запрос"
@@ -36,7 +34,7 @@ export default function Movies({
       return 12;
     }
   };
-  var lastResize = 0;
+  let lastResize = 0;
 
   useEffect(() => {
     if (search === null) {
@@ -44,7 +42,6 @@ export default function Movies({
     }
     setIsShortFilm(checkBox);
     checkSearchValue();
-    checkCards();
 
     formValidate(search);
 
@@ -67,15 +64,14 @@ export default function Movies({
 
   useEffect(() => {
     formValidate(search);
+    if (isLoadedCards) {
+      onSetIsChangePreloader(false);
+    }
   }, [isLoadedCards]);
 
   useEffect(() => {
     formValidate(isValue);
-  }, [isShortFilm]);
-
-  useEffect(() => {
-    formValidate(isValue);
-  }, [width]);
+  }, [isShortFilm, width]);
 
   function checkSearchValue() {
     if (search) {
@@ -110,7 +106,8 @@ export default function Movies({
       setErrors("Для поиска необходимо ввести значение");
       return false;
     } else {
-      var result = cards.filter((card) => {
+      checkCards();
+      let result = cards.filter((card) => {
         if (card.nameRU.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return true;
         } else if (
@@ -130,12 +127,12 @@ export default function Movies({
 
       if (result.length === 0) {
         setErrors("Ничего не найдено");
-        onSetIsChangePreloader(false);
+        // onSetIsChangePreloader(false);
         return false;
       } else {
         buttonChange(result);
         setToggleCardState(true);
-        onSetIsChangePreloader(false);
+        // onSetIsChangePreloader(false);
         return true;
       }
     }
@@ -159,19 +156,6 @@ export default function Movies({
     }
   }
 
-  function formSubmit(e) {
-    e.preventDefault();
-    setIsChangeButton(0);
-    localStorage.setItem("search", isValue);
-    setToggleCardState(true);
-    if (!formValidate(isValue)) {
-      setToggleCardState(false);
-      return false;
-    } else {
-      setToggleCardState(true);
-    }
-  }
-
   const handleChange = (event) => {
     setIsValue(event.target.value);
   };
@@ -182,6 +166,20 @@ export default function Movies({
       return !isShortFilm;
     });
   };
+
+  function formSubmit(e) {
+    e.preventDefault();
+    checkCards();
+    setIsChangeButton(0);
+    localStorage.setItem("search", isValue);
+    setToggleCardState(true);
+    if (!formValidate(isValue)) {
+      setToggleCardState(false);
+      return false;
+    } else {
+      setToggleCardState(true);
+    }
+  }
 
   return (
     <main>
@@ -196,7 +194,10 @@ export default function Movies({
             value={isValue}
             onChange={handleChange}
           />
-          <button className="search-form__button"></button>
+          <button
+            className="search-form__button"
+            disabled={isChangeForms}
+          ></button>
         </form>
         <div className="search-form__checkbox-wrapper">
           <label className="search-form__toggler-wrapper style-1">
@@ -226,9 +227,6 @@ export default function Movies({
                   itemCard={card}
                   key={card.id}
                   onCardLike={onCardLike}
-                  getLikedCards={getLikedCards}
-                  onLikedCards={onLikedCards}
-                  onSetIsLikedCards={onSetIsLikedCards}
                   onIsLikedCards={onIsLikedCards}
                 />
               ))}

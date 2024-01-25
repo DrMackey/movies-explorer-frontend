@@ -26,11 +26,12 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isChangeScroll, setIsChangeScroll] = useState(false);
   const [cards, setCards] = useState([]);
-  const [isLikedCards, setIsLikedCards] = useState();
-  const [likedCards, setLikedCards] = useState([]);
+  const [isLikedCards, setIsLikedCards] = useState([]);
+  const [isFirstBootCards, setIsFirstBootCards] = useState(false);
   const [isLoadedCards, setIsLoadedCards] = useState(false);
+  const [isChangeForms, setIsChangeForms] = useState(false);
   const [isLoadedLikedCards, setIsLoadedLikedCards] = useState(false);
-  const [isChangePreloader, setIsChangePreloader] = useState(true);
+  const [isChangePreloader, setIsChangePreloader] = useState(false);
   const [userData, setUserData] = useState({});
   const [currentUser, setCurrentUser] = useState(currentUserCon);
   const navigate = useNavigate();
@@ -85,6 +86,25 @@ function App() {
     setIsChangeScroll(!isChangeScroll);
   }
 
+  function checkLikedCards(cards) {
+    if (isFirstBootCards) {
+      setIsFirstBootCards(false);
+      getLikedCards();
+    }
+
+    cards.map((card) => {
+      isLikedCards.map((trueCard) => {
+        if (trueCard.id === card.id) {
+          card["_id"] = trueCard._id;
+        }
+      });
+    });
+    setCards(cards);
+    setIsLoadedCards(true);
+    setIsChangePreloader(false);
+    setIsChangeForms(false);
+  }
+
   function getLikedCards() {
     setIsChangePreloader(true);
     api
@@ -109,23 +129,31 @@ function App() {
       });
   }
 
-  function deleteLikedCards(idCard) {
+  function deleteLikedCards(card) {
+    setIsChangePreloader(true);
     api
-      .deleteLikedMovie(idCard)
+      .deleteLikedMovie(card._id)
       .then((res) => {
-        getLikedCards();
+        deleteCard(res.data);
+        setIsChangePreloader(false);
       })
       .catch((err) => {
+        setIsStatus({
+          status: false,
+          text: "Что-то пошло не так! Попробуйте ещё раз",
+        });
+        setIsAuthPopupOpen(true);
         console.log(err);
       });
   }
 
   function getDataCards() {
+    setIsChangePreloader(true);
+    setIsChangeForms(true);
     moviesApi
       .getInitialCards()
       .then((cards) => {
-        setCards(cards);
-        setIsLoadedCards(true);
+        checkLikedCards(cards);
       })
       .catch((err) => {
         console.log(err);
@@ -143,7 +171,6 @@ function App() {
       .then((res) => {
         handleLoggedIn(true);
         navigate("/movies", { replace: true });
-
         tokenCheck();
       })
       .catch((err) => {
@@ -161,10 +188,10 @@ function App() {
 
   function handleRegister() {
     const { name, email, password } = formValue;
+
     api
       .register(name, email, password)
       .then((res) => {
-        // navigate("/signin", { replace: true });
         handleLogin();
         setIsStatus({ status: true, text: "Вы успешно зарегистрировались!" });
         setIsAuthPopupOpen(true);
@@ -178,9 +205,9 @@ function App() {
       });
   }
 
-  function handleUpdateUser({ name, email }) {
+  function handleUpdateUser({ newName, newEmail }) {
     api
-      .setUserInfo(name, email)
+      .setUserInfo(newName, newEmail)
       .then((profileData) => {
         setCurrentUser(profileData);
         setIsStatus({ status: true, text: "Данные успешно изменены!" });
@@ -195,14 +222,23 @@ function App() {
       });
   }
 
+  function deleteCard(card) {
+    isLikedCards.map((likedCard, index) => {
+      if (likedCard._id === card._id) {
+        isLikedCards.splice(index, 1);
+      }
+    });
+  }
+
   function handleCardLike(card, setIsLiked, isLiked) {
-    setLikedCards();
+    checkLikedCards(cards);
     if (!isLiked) {
       api
         .createMovie(card, currentUser._id)
         .then((newCard) => {
           card["_id"] = newCard._id;
           setIsLiked(!isLiked);
+          isLikedCards.push(newCard);
         })
         .catch((err) => {
           setIsStatus({
@@ -217,6 +253,7 @@ function App() {
         .deleteLikedMovie(card._id)
         .then((res) => {
           setIsLiked(!isLiked);
+          deleteCard(card);
         })
         .catch((err) => {
           setIsStatus({
@@ -270,14 +307,11 @@ function App() {
                   cards={cards}
                   onChangePreloader={isChangePreloader}
                   onSetIsChangePreloader={setIsChangePreloader}
-                  setCards={setCards}
                   getDataCards={getDataCards}
                   isLoadedCards={isLoadedCards}
                   onCardLike={handleCardLike}
-                  getLikedCards={getLikedCards}
-                  onLikedCards={likedCards}
-                  onSetIsLikedCards={setIsLikedCards}
                   onIsLikedCards={isLikedCards}
+                  isChangeForms={isChangeForms}
                 />
               }
             />
@@ -290,14 +324,12 @@ function App() {
                   cards={isLikedCards}
                   onChangePreloader={isChangePreloader}
                   onSetIsChangePreloader={setIsChangePreloader}
-                  setCards={setIsLikedCards}
-                  getDataCards={getDataCards}
                   isLoadedCards={isLoadedLikedCards}
                   setIsLoadedLikedCards={setIsLoadedLikedCards}
-                  onCardLike={handleCardLike}
                   getLikedCards={getLikedCards}
-                  onLikedCards={likedCards}
                   onDeleteLikedCards={deleteLikedCards}
+                  setIsFirstBootCards={setIsFirstBootCards}
+                  isFirstBootCards={isFirstBootCards}
                 />
               }
             />
@@ -307,7 +339,6 @@ function App() {
                 <ProtectedRouteElement
                   element={Profile}
                   loggedIn={loggedIn}
-                  userData={userData}
                   onUpdateUser={handleUpdateUser}
                   onSignOut={signOut}
                 />

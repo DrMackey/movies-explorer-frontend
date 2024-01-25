@@ -107,6 +107,11 @@ export default function Regitster({ onRegister, onSetFormValue, onFormValue }) {
     e.preventDefault();
 
     onRegister();
+    onSetFormValue({
+      name: "",
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -131,6 +136,7 @@ export default function Regitster({ onRegister, onSetFormValue, onFormValue }) {
                 required
                 minLength="2"
                 maxLength="40"
+                value={onFormValue.name}
                 onChange={handleChange}
                 noValidate
               />
@@ -150,6 +156,7 @@ export default function Regitster({ onRegister, onSetFormValue, onFormValue }) {
                 required
                 minLength="2"
                 maxLength="40"
+                value={onFormValue.email}
                 onChange={handleChange}
                 noValidate
               />
@@ -169,6 +176,7 @@ export default function Regitster({ onRegister, onSetFormValue, onFormValue }) {
                 required
                 minLength="2"
                 maxLength="200"
+                value={onFormValue.password}
                 onChange={handleChange}
                 noValidate
               />

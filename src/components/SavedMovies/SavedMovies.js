@@ -5,36 +5,38 @@ import Preloader from "../Preloader/Preloader.js";
 
 export default function SavedMovies({
   cards,
-  setCards,
   onChangePreloader,
   onSetIsChangePreloader,
   isLoadedCards,
   setIsLoadedLikedCards,
   getLikedCards,
   onDeleteLikedCards,
+  setIsFirstBootCards,
+  isFirstBootCards,
 }) {
   const [isValue, setIsValue] = useState("");
   const [isShortFilm, setIsShortFilm] = useState(false);
   const [errors, setErrors] = useState("Список избранного пуст");
+  const [isBufferCards, setIsBufferCards] = useState(cards);
 
   useEffect(() => {
-    getLikedCards();
+    if (isFirstBootCards) {
+      setIsFirstBootCards(false);
+      getLikedCards();
+    }
     if (cards.length === 0) {
       setErrors("Список избранного пуст");
       setIsLoadedLikedCards(false);
+    } else {
+      onSetIsChangePreloader(false);
+      setIsLoadedLikedCards(true);
     }
   }, []);
 
   useEffect(() => {
+    setIsBufferCards(cards);
     formValidate(isValue);
-  }, [isShortFilm]);
-
-  useEffect(() => {
-    if (cards.length === 0) {
-      setErrors("Список избранного пуст");
-      setIsLoadedLikedCards(false);
-    }
-  }, [cards]);
+  }, [isShortFilm, onChangePreloader]);
 
   function isShortFilmValidate(result) {
     if (isShortFilm) {
@@ -57,19 +59,24 @@ export default function SavedMovies({
           setErrors("Ничего не найдено");
           setIsLoadedLikedCards(false);
         } else {
-          setCards(resultShortValidate);
+          setIsLoadedLikedCards(true);
+          setIsBufferCards(resultShortValidate);
           return;
         }
         return;
       }
-      getLikedCards();
-      return false;
-    } else {
-      if (isShortFilm) {
-        setCards(isShortFilmValidate(cards));
+
+      if (isBufferCards.length === 0) {
+        setErrors("Ничего не найдено");
+        setIsLoadedLikedCards(false);
         return;
       }
-      var result = cards.filter((card) => {
+
+      setIsBufferCards(cards);
+      setIsLoadedLikedCards(true);
+      return true;
+    } else {
+      let result = cards.filter((card) => {
         if (card.nameRU.toLowerCase().indexOf(value.toLowerCase()) > -1) {
           return true;
         } else if (
@@ -78,13 +85,18 @@ export default function SavedMovies({
           return true;
         }
       });
+
+      if (isShortFilm) {
+        setIsBufferCards(isShortFilmValidate(result));
+        return;
+      }
       if (result.length === 0) {
         setErrors("Ничего не найдено");
         onSetIsChangePreloader(false);
         setIsLoadedLikedCards(false);
         return false;
       } else {
-        setCards(result);
+        setIsBufferCards(result);
         setIsLoadedLikedCards(true);
         onSetIsChangePreloader(false);
         return true;
@@ -95,13 +107,6 @@ export default function SavedMovies({
   function formSubmit(e) {
     e.preventDefault();
     formValidate(isValue);
-    setIsLoadedLikedCards(true);
-    if (!formValidate(isValue)) {
-      setIsLoadedLikedCards(false);
-      return false;
-    } else {
-      setIsLoadedLikedCards(true);
-    }
   }
 
   const handleChange = (event) => {
@@ -150,7 +155,7 @@ export default function SavedMovies({
         ) : (
           <>
             <ul className="saved-movies-card-list__list">
-              {cards.map((card) => (
+              {isBufferCards.map((card) => (
                 <MoviesCard
                   itemCard={card}
                   key={card.id}

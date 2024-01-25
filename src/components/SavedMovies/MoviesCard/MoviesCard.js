@@ -4,7 +4,7 @@ import "./MoviesCard.css";
 
 export default function MoviesCard({ itemCard, onDeleteLikedCards }) {
   function handleLikeClick() {
-    onDeleteLikedCards(itemCard._id);
+    onDeleteLikedCards(itemCard);
   }
 
   function getTimeFromMins(mins) {
