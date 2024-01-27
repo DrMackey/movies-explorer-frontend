@@ -3,33 +3,43 @@ import { Link } from "react-router-dom";
 import { currentUserContext } from "../contexts/CurrentUserContext.js";
 import "./Profile.css";
 
-export default function Profile({ onUpdateUser, onSignOut }) {
+export default function Profile({
+  onUpdateUser,
+  onSignOut,
+  isChangeEditButton,
+  setIsChangeEditButton,
+  onChangeButton,
+  setOnChangeButton,
+}) {
   const currentUser = React.useContext(currentUserContext);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
   const mailformat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   const [errors, setErrors] = useState({});
-  const [onChangeButton, setOnChangeButton] = useState(false);
-  const [isChangeEditButton, setIsChangeEditButton] = useState(false);
+
   const [isInputsStatus, setIsInputsStatus] = useState({
-    "nickname": true,
-    "email": true,
+    "nickname": false,
+    "email": false,
   });
 
   useEffect(() => {
     hundleButton(Object.values(isInputsStatus));
   }, [isInputsStatus]);
 
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
+
   function handleSubmit(e) {
     e.preventDefault();
-    setIsChangeEditButton(false);
 
-    if (name.length === 0 && email.length === 0) {
+    if (name === currentUser.name && email === currentUser.email) {
       setIsChangeEditButton(false);
     } else {
       onUpdateUser(dataValidate());
-      setName("");
-      setEmail("");
+      // setName("");
+      // setEmail("");
     }
   }
 
@@ -52,8 +62,8 @@ export default function Profile({ onUpdateUser, onSignOut }) {
 
   function nameFormValidate(name, value) {
     if (value.length === 0) {
-      setErrors({ ...errors, [name]: "" });
-      return true;
+      setErrors({ ...errors, [name]: "Поле не может быть пустым" });
+      return false;
     } else if (value.length <= 2) {
       setErrors({ ...errors, [name]: "Слишком короткое имя" });
       return false;
@@ -63,43 +73,47 @@ export default function Profile({ onUpdateUser, onSignOut }) {
     } else if (value.length >= 40) {
       setErrors({ ...errors, [name]: "Слишком длинное имя" });
       return false;
-    } else if (currentUser.name === value) {
+    } else if (value === currentUser.name && email === currentUser.email) {
       setErrors({
         ...errors,
-        [name]: "Имя не может совпадать с текущим",
+        [name]: "Данные не могут совпадать с текущими",
+        "email": "Данные не могут совпадать с текущими",
       });
+      setIsInputsStatus({ ...isInputsStatus, "email": false });
       return false;
     }
 
-    setErrors({ ...errors, [name]: "" });
+    setErrors({ ...errors, [name]: "", "email": "" });
     return true;
   }
 
-  function emailFormValidate(name, value) {
+  function emailFormValidate(nameInput, value) {
     if (value.length === 0) {
-      setErrors({ ...errors, [name]: "" });
-      return true;
+      setErrors({ ...errors, [nameInput]: "Поле не может быть пустым" });
+      return false;
     } else if (value.length <= 2) {
-      setErrors({ ...errors, [name]: "Слишком короткий E-mail" });
+      setErrors({ ...errors, [nameInput]: "Слишком короткий E-mail" });
       return false;
     } else if (value.length >= 40) {
-      setErrors({ ...errors, [name]: "Слишком длинний E-mail" });
+      setErrors({ ...errors, [nameInput]: "Слишком длинний E-mail" });
       return false;
-    } else if (currentUser.email === value) {
+    } else if (name === currentUser.name && value === currentUser.email) {
       setErrors({
         ...errors,
-        [name]: "Почта не может совпадать с текущей",
+        [nameInput]: "Данные не могут совпадать с текущими",
+        "nickname": "Данные не могут совпадать с текущими",
       });
+      setIsInputsStatus({ ...isInputsStatus, "nickname": false });
       return false;
     } else if (!value.match(mailformat)) {
       setErrors({
         ...errors,
-        [name]: "Почта не соответствует маске mail@mail.com",
+        [nameInput]: "Почта не соответствует маске mail@mail.com",
       });
       return false;
     }
 
-    setErrors({ ...errors, [name]: "" });
+    setErrors({ ...errors, [nameInput]: "", "nickname": "" });
     return true;
   }
 
@@ -118,11 +132,11 @@ export default function Profile({ onUpdateUser, onSignOut }) {
   }
 
   function hundleButton(data) {
-    if (!data.includes(false)) {
-      setOnChangeButton(false);
+    if (!data.includes(true)) {
+      setOnChangeButton(true);
       return;
     }
-    setOnChangeButton(true);
+    setOnChangeButton(false);
   }
 
   function onChangeEditButton() {
@@ -150,7 +164,7 @@ export default function Profile({ onUpdateUser, onSignOut }) {
                 }`}
                 id="nickname"
                 name="nickname"
-                placeholder={currentUser.name}
+                // placeholder={currentUser.name}
                 value={name}
                 minLength="2"
                 maxLength="40"
@@ -171,7 +185,7 @@ export default function Profile({ onUpdateUser, onSignOut }) {
                 }`}
                 id="email"
                 name="email"
-                placeholder={currentUser.email}
+                // placeholder={currentUser.email}
                 value={email}
                 minLength="2"
                 maxLength="40"

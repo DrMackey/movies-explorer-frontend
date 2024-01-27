@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
+import {
+  Route,
+  Routes,
+  Navigate,
+  useNavigate,
+  useLocation,
+  useRouteError,
+} from "react-router-dom";
 import ProtectedRouteElement from "../ProtectedRoute.js";
 import {
   currentUserContext,
@@ -30,11 +37,14 @@ function App() {
   const [isFirstBootCards, setIsFirstBootCards] = useState(false);
   const [isLoadedCards, setIsLoadedCards] = useState(false);
   const [isChangeForms, setIsChangeForms] = useState(false);
+  const [onChangeButton, setOnChangeButton] = useState(false);
   const [isLoadedLikedCards, setIsLoadedLikedCards] = useState(false);
   const [isChangePreloader, setIsChangePreloader] = useState(false);
+  const [isChangeEditButton, setIsChangeEditButton] = useState(false);
   const [userData, setUserData] = useState({});
   const [currentUser, setCurrentUser] = useState(currentUserCon);
   const navigate = useNavigate();
+  const location = useLocation();
   const [isStatus, setIsStatus] = useState({});
   const [isAuthPopupOpen, setIsAuthPopupOpen] = useState(false);
   const [formValue, setFormValue] = useState({
@@ -56,7 +66,14 @@ function App() {
         if (res._id === jwt) {
           setUserData(res);
           setLoggedIn(true);
-          navigate("/", { replace: true });
+          if (
+            location.pathname === "/signin" ||
+            location.pathname === "/signup"
+          ) {
+            navigate("/", { replace: true });
+          } else {
+            navigate(location.pathname, { replace: true });
+          }
           getLikedCards();
         }
       })
@@ -206,12 +223,15 @@ function App() {
   }
 
   function handleUpdateUser({ newName, newEmail }) {
+    setOnChangeButton(true);
     api
       .setUserInfo(newName, newEmail)
       .then((profileData) => {
         setCurrentUser(profileData);
         setIsStatus({ status: true, text: "Данные успешно изменены!" });
         setIsAuthPopupOpen(true);
+        setIsChangeEditButton(false);
+        setOnChangeButton(false);
       })
       .catch((err) => {
         setIsStatus({
@@ -286,17 +306,20 @@ function App() {
       <currentUserContext.Provider value={currentUser}>
         <div className={`page ${isChangeScroll ? "page_noscroll" : ""}`}>
           <Header onChangeScroll={onChangeScroll} isLogin={loggedIn} />
+
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route
               path="*"
               element={
                 loggedIn ? (
-                  <Navigate to="/" replace />
+                  <Navigate to={location.pathname} replace />
                 ) : (
-                  <Navigate to="/sign-in" replace />
+                  <Navigate to="/signin" replace />
                 )
               }
             />
+
             <Route path="/" element={<Main />} />
             <Route
               path="/movies"
@@ -341,6 +364,10 @@ function App() {
                   loggedIn={loggedIn}
                   onUpdateUser={handleUpdateUser}
                   onSignOut={signOut}
+                  isChangeEditButton={isChangeEditButton}
+                  setIsChangeEditButton={setIsChangeEditButton}
+                  onChangeButton={onChangeButton}
+                  setOnChangeButton={setOnChangeButton}
                 />
               }
             />
@@ -364,7 +391,6 @@ function App() {
                 />
               }
             />
-            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </div>
