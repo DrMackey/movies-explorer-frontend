@@ -34,13 +34,13 @@ export default function Profile({
   function handleSubmit(e) {
     e.preventDefault();
 
-    if (name === currentUser.name && email === currentUser.email) {
-      setIsChangeEditButton(false);
-    } else {
-      onUpdateUser(dataValidate());
-      // setName("");
-      // setEmail("");
-    }
+    onUpdateUser(dataValidate());
+    // setIsChangeEditButton(true);
+    setOnChangeButton(true);
+    setIsInputsStatus({
+      "nickname": false,
+      "email": false,
+    });
   }
 
   function dataValidate() {
@@ -141,6 +141,7 @@ export default function Profile({
 
   function onChangeEditButton() {
     setIsChangeEditButton(true);
+    console.log(onChangeButton, isInputsStatus);
   }
 
   return (

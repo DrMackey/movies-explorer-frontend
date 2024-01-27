@@ -231,7 +231,7 @@ function App() {
         setIsStatus({ status: true, text: "Данные успешно изменены!" });
         setIsAuthPopupOpen(true);
         setIsChangeEditButton(false);
-        setOnChangeButton(false);
+        // setOnChangeButton(false);
       })
       .catch((err) => {
         setIsStatus({
@@ -239,6 +239,7 @@ function App() {
           text: "Что-то пошло не так! Попробуйте ещё раз",
         });
         setIsAuthPopupOpen(true);
+        setOnChangeButton(false);
       });
   }
 
