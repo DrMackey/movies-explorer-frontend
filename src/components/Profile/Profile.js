@@ -35,7 +35,6 @@ export default function Profile({
     e.preventDefault();
 
     onUpdateUser(dataValidate());
-    // setIsChangeEditButton(true);
     setOnChangeButton(true);
     setIsInputsStatus({
       "nickname": false,
@@ -141,7 +140,6 @@ export default function Profile({
 
   function onChangeEditButton() {
     setIsChangeEditButton(true);
-    console.log(onChangeButton, isInputsStatus);
   }
 
   return (
@@ -165,7 +163,6 @@ export default function Profile({
                 }`}
                 id="nickname"
                 name="nickname"
-                // placeholder={currentUser.name}
                 value={name}
                 minLength="2"
                 maxLength="40"
@@ -186,7 +183,6 @@ export default function Profile({
                 }`}
                 id="email"
                 name="email"
-                // placeholder={currentUser.email}
                 value={email}
                 minLength="2"
                 maxLength="40"
