@@ -1,17 +1,20 @@
-.header {
+.header__container {
+  padding: 18px 14px;
   display: flex;
   justify-content: space-between;
-  padding: 18px 14px;
+  /* width: 100%; */
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (min-width: 600px) {
-  .header {
+  .header__container {
     padding: 18px 30px;
   }
 }
 
 @media (min-width: 1000px) {
-  .header {
+  .header__container {
     padding: 18px 70px;
   }
 }
@@ -281,4 +284,63 @@
 
 .header__profile-icon-main {
   background-color: #0F4157;
+}
+
+.header__login-link {
+  padding: 5px 12px;
+  text-decoration: none;
+  border-radius: 3px;
+  background: #3DDC84;
+  color: #000;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 160% */
+  cursor: pointer;
+}
+
+@media (min-width: 700px) {
+  .header__login-link {
+    padding: 8px 20px;
+    font-size: 12px;
+  }
+}
+
+.header__login-link:hover {
+  opacity: .8;
+}
+
+.header__register-link {
+  text-decoration: none;
+  color: #FFF;
+  text-align: right;
+  font-family: Inter;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px; /* 160% */
+  cursor: pointer;
+}
+
+@media (min-width: 700px) {
+  .header__register-link {
+    font-size: 12px;
+  }
+}
+
+.header__register-link:hover {
+  opacity: .8;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+@media (min-width: 700px) {
+  .header__nav {
+    gap: 30px;
+  }
 }

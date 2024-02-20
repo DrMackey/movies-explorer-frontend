@@ -1,3 +1,8 @@
+.movies__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .search-form {
   padding: 80px 14px;
   padding-bottom: 10px;
@@ -25,10 +30,10 @@
   padding: 6px;
   border-radius: 40px;
   background: #2F2F2F;
+  border: 1px #2F2F2F solid;
 }
 
 .search-form__input {
-  
   padding: 8px 0;
   padding-left: 13px;
   color: #fff;
@@ -69,6 +74,7 @@
   background-size: 34px;
   background-repeat: no-repeat;
   background-position: center;
+  cursor: pointer;
 }
 
 .search-form__button:hover {
@@ -168,7 +174,12 @@
 
 
 
-
+.movies-cards-list__subtitle {
+  margin: 0;
+  text-align: center;
+  color: #8B8B8B;
+  font-size: 24px;
+}
 
 .movies-card-list {
   padding: 40px 10px 80px 10px;
@@ -307,6 +318,7 @@
   background-repeat: no-repeat;
   background-size: 30px;
   background-position: center;
+  cursor: pointer;
 }
 
 @media (min-width: 600px) {
@@ -340,4 +352,9 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  cursor: pointer;
+}
+
+.movies-card-list__button:hover {
+  opacity: .8;
 }

@@ -1,3 +1,8 @@
+.saved-movies__container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .search-form {
   padding: 80px 14px;
   padding-bottom: 10px;
@@ -158,6 +163,12 @@
 
 
 
+.saved-movies-cards-list__subtitle {
+  margin: 0;
+  text-align: center;
+  color: #8B8B8B;
+  font-size: 24px;
+}
 
 .saved-movies-card-list {
   padding: 40px 10px 140px 10px;
