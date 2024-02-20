@@ -1,15 +1,18 @@
-.about-project {
+.about-project__container {
   padding: 70px 18px;
+  /* width: 100%; */
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (min-width: 700px) {
-  .about-project {
+  .about-project__container {
     padding: 90px 50px;
   }
 }
 
 @media (min-width: 1000px) {
-  .about-project {
+  .about-project__container {
     padding: 110px 70px;
   }
 }

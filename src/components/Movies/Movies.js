@@ -183,67 +183,69 @@ export default function Movies({
 
   return (
     <main>
-      <section className="search-form">
-        <form className="search-form__input-wrapper" onSubmit={formSubmit}>
-          <input
-            className="search-form__input"
-            type="text"
-            placeholder="Фильм"
-            id="search"
-            name="search"
-            value={isValue}
-            onChange={handleChange}
-          />
-          <button
-            className="search-form__button"
-            disabled={isChangeForms}
-          ></button>
-        </form>
-        <div className="search-form__checkbox-wrapper">
-          <label className="search-form__toggler-wrapper style-1">
+      <div className="movies__container">
+        <section className="search-form">
+          <form className="search-form__input-wrapper" onSubmit={formSubmit}>
             <input
-              className="search-form__checkbox"
-              type="checkbox"
-              checked={isShortFilm}
-              onChange={onToggleShortFilm}
+              className="search-form__input"
+              type="text"
+              placeholder="Фильм"
+              id="search"
+              name="search"
+              value={isValue}
+              onChange={handleChange}
             />
-            <div className="search-form__toggler-slider">
-              <div className="search-form__toggler-knob"></div>
-            </div>
-          </label>
-          <p className="search-form__checkbox-subtitle">Короткометражки</p>
-        </div>
-      </section>
-      <section className="movies-card-list">
-        {onChangePreloader ? (
-          <Preloader />
-        ) : !toggleCardState ? (
-          <p className="movies-cards-list__subtitle">{errors}</p>
-        ) : (
-          <>
-            <ul className="movies-card-list__list">
-              {cardBuffer.map((card) => (
-                <MoviesCard
-                  itemCard={card}
-                  key={card.id}
-                  onCardLike={onCardLike}
-                  onIsLikedCards={onIsLikedCards}
-                />
-              ))}
-            </ul>
-            {onChangeButton ? (
-              <button
-                className="movies-card-list__button"
-                onClick={toggleCardList}
-              >
-                Ещё
-              </button>
-            ) : (
-              ""
-            )}
-          </>
-        )}
-      </section>
+            <button
+              className="search-form__button"
+              disabled={isChangeForms}
+            ></button>
+          </form>
+          <div className="search-form__checkbox-wrapper">
+            <label className="search-form__toggler-wrapper style-1">
+              <input
+                className="search-form__checkbox"
+                type="checkbox"
+                checked={isShortFilm}
+                onChange={onToggleShortFilm}
+              />
+              <div className="search-form__toggler-slider">
+                <div className="search-form__toggler-knob"></div>
+              </div>
+            </label>
+            <p className="search-form__checkbox-subtitle">Короткометражки</p>
+          </div>
+        </section>
+        <section className="movies-card-list">
+          {onChangePreloader ? (
+            <Preloader />
+          ) : !toggleCardState ? (
+            <p className="movies-cards-list__subtitle">{errors}</p>
+          ) : (
+            <>
+              <ul className="movies-card-list__list">
+                {cardBuffer.map((card) => (
+                  <MoviesCard
+                    itemCard={card}
+                    key={card.id}
+                    onCardLike={onCardLike}
+                    onIsLikedCards={onIsLikedCards}
+                  />
+                ))}
+              </ul>
+              {onChangeButton ? (
+                <button
+                  className="movies-card-list__button"
+                  onClick={toggleCardList}
+                >
+                  Ещё
+                </button>
+              ) : (
+                ""
+              )}
+            </>
+          )}
+        </section>
+      </div>
     </main>
   );
 }

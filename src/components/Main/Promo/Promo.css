@@ -1,16 +1,22 @@
 .promo {
+  background-color: #073042;
+}
+
+.promo__container {
   display: flex;
   justify-content: center;
   padding: 207px 10px 246px;
-  background-color: #073042;
   background-image: url(../../../images/background-main-page.svg);
   background-size: 248px;
   background-repeat: no-repeat;
   background-position: center 142px;
+  /* width: 100%; */
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (min-width: 700px) {
-  .promo {
+  .promo__container {
     padding: 326px 10px 342px;
     background-size: 320px;
     background-position: center 224px;
@@ -18,7 +24,7 @@
 }
 
 @media (min-width: 1000px) {
-  .promo {
+  .promo__container {
     padding: 184px 10px 224px;
     background-size: 320px;
     background-position: center 82px;

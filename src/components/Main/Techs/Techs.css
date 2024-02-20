@@ -1,16 +1,24 @@
-.techs {
-  padding: 70px 14px;
-}
-
 @media (min-width: 700px) {
   .techs {
-    padding: 90px 50px;
     background: #272727;
   }
 }
 
+.techs__container {
+  padding: 70px 14px;
+  /* width: 100%; */
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+  .techs__container {
+    padding: 90px 50px;
+  }
+}
+
 @media (min-width: 1000px) {
-  .techs {
+  .techs__container {
     padding: 100px 70px;
   }
 }

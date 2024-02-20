@@ -1,15 +1,18 @@
-.about-me {
+.about-me__container {
   padding: 70px 14px;
+  /* width: 100%; */
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 @media (min-width: 700px) {
-  .about-me {
+  .about-me__container {
     padding: 90px 50px;
   }
 }
 
 @media (min-width: 1000px) {
-  .about-me {
+  .about-me__container {
     padding: 110px 70px;
     padding-bottom: 100px;
   }

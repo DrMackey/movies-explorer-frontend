@@ -17,15 +17,17 @@ export default function NavTab() {
 
   return (
     <nav className="navtab">
-      <Link onClick={onClick} className="navtab__link">
-        О проекте
-      </Link>
-      <Link onClick={onClick2} className="navtab__link">
-        Технологии
-      </Link>
-      <Link onClick={onClick3} className="navtab__link">
-        Студент
-      </Link>
+      <div className="navtab__container">
+        <Link onClick={onClick} className="navtab__link">
+          О проекте
+        </Link>
+        <Link onClick={onClick2} className="navtab__link">
+          Технологии
+        </Link>
+        <Link onClick={onClick3} className="navtab__link">
+          Студент
+        </Link>
+      </div>
     </nav>
   );
 }

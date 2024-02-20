@@ -119,53 +119,55 @@ export default function SavedMovies({
 
   return (
     <main>
-      <section className="search-form">
-        <form className="search-form__input-wrapper" onSubmit={formSubmit}>
-          <input
-            className="search-form__input"
-            type="text"
-            placeholder="Фильм"
-            id="search"
-            name="search"
-            value={isValue}
-            onChange={handleChange}
-          />
-          <button className="search-form__button"></button>
-        </form>
-        <div className="search-form__checkbox-wrapper">
-          <label className="search-form__toggler-wrapper style-1">
+      <div className="saved-movies__container">
+        <section className="search-form">
+          <form className="search-form__input-wrapper" onSubmit={formSubmit}>
             <input
-              className="search-form__checkbox"
-              type="checkbox"
-              checked={isShortFilm}
-              onChange={onToggleShortFilm}
+              className="search-form__input"
+              type="text"
+              placeholder="Фильм"
+              id="search"
+              name="search"
+              value={isValue}
+              onChange={handleChange}
             />
-            <div className="search-form__toggler-slider">
-              <div className="search-form__toggler-knob"></div>
-            </div>
-          </label>
-          <p className="search-form__checkbox-subtitle">Короткометражки</p>
-        </div>
-      </section>
-      <section className="saved-movies-card-list">
-        {onChangePreloader ? (
-          <Preloader />
-        ) : !isLoadedCards ? (
-          <p className="saved-movies-cards-list__subtitle">{errors}</p>
-        ) : (
-          <>
-            <ul className="saved-movies-card-list__list">
-              {isBufferCards.map((card) => (
-                <MoviesCard
-                  itemCard={card}
-                  key={card.id}
-                  onDeleteLikedCards={onDeleteLikedCards}
-                />
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
+            <button className="search-form__button"></button>
+          </form>
+          <div className="search-form__checkbox-wrapper">
+            <label className="search-form__toggler-wrapper style-1">
+              <input
+                className="search-form__checkbox"
+                type="checkbox"
+                checked={isShortFilm}
+                onChange={onToggleShortFilm}
+              />
+              <div className="search-form__toggler-slider">
+                <div className="search-form__toggler-knob"></div>
+              </div>
+            </label>
+            <p className="search-form__checkbox-subtitle">Короткометражки</p>
+          </div>
+        </section>
+        <section className="saved-movies-card-list">
+          {onChangePreloader ? (
+            <Preloader />
+          ) : !isLoadedCards ? (
+            <p className="saved-movies-cards-list__subtitle">{errors}</p>
+          ) : (
+            <>
+              <ul className="saved-movies-card-list__list">
+                {isBufferCards.map((card) => (
+                  <MoviesCard
+                    itemCard={card}
+                    key={card.id}
+                    onDeleteLikedCards={onDeleteLikedCards}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+      </div>
     </main>
   );
 }
