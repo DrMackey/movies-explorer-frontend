@@ -13,6 +13,8 @@
 - React Router Dom
 - CSS
 
+Api к клиентской части: https://github.com/DrMackey/movies-explorer-api
+
 Ссылка на проект: https://drmackey.nomoredomainsmonster.ru/
 
 ![drmackey nomoredomainsmonster ru_](https://github.com/DrMackey/movies-explorer-frontend/assets/92988373/2917091a-5773-4f1e-8ad8-f0c9ff441d08)
